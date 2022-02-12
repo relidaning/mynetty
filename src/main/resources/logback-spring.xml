@@ -2,8 +2,15 @@
 <configuration>
     <contextName>mynetty</contextName>
     <property name="LOG_PATH" value="${user.dir}/log"/>
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
-    <!-- 日志记录器，日期滚动记录 -->
+    <!-- error -->
     <appender name="FILEERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文件的路径及文件名 -->
         <file>${LOG_PATH}/log_error.log</file>
@@ -18,7 +25,7 @@
         <append>true</append>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - b:%X{bid:-null} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <!-- 此日志文件只记录error级别的 -->
@@ -29,7 +36,7 @@
         </filter>
     </appender>
 
-    <!-- 日志记录器，日期滚动记录 -->
+    <!-- info -->
     <appender name="FILEINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文件的路径及文件名 -->
         <file>${LOG_PATH}/log_info.log</file>
@@ -45,7 +52,7 @@
         <append>true</append>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - b:%X{bid:-null} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <!-- 此日志文件只记录info级别的 -->
@@ -56,7 +63,7 @@
         </filter>
     </appender>
 
-    <!-- 日志记录器，日期滚动记录 -->
+    <!-- warn -->
     <appender name="FILEWARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文件的路径及文件名 -->
         <file>${LOG_PATH}/log_warn.log</file>
@@ -74,7 +81,7 @@
         <append>true</append>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - b:%X{bid:-null} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <!-- 此日志文件只记录warn级别的 -->
@@ -85,7 +92,7 @@
         </filter>
     </appender>
 
-    <!-- 日志记录器，日期滚动记录 -->
+    <!-- debug -->
     <appender name="FILEDEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文件的路径及文件名 -->
         <file>${LOG_PATH}/log_debug.log</file>
@@ -101,7 +108,7 @@
         <append>true</append>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - b:%X{bid:-null} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
         <!-- 此日志文件只记录warn级别的 -->
@@ -112,10 +119,10 @@
         </filter>
     </appender>
 
-    <!-- 日志记录器，日期滚动记录 -->
+    <!-- All -->
     <appender name="FILEALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文件的路径及文件名 -->
-        <file>${LOG_PATH}/console.log</file>
+        <file>${LOG_PATH}/log_all.log</file>
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/log-all-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
@@ -128,7 +135,7 @@
         <append>true</append>
         <!-- 日志文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - b:%X{bid:-null} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -136,7 +143,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!--encoder 默认配置为PatternLayoutEncoder-->
         <encoder>
-            <pattern>===%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - b:%X{bid:-null} - %msg%n</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
             <charset>utf-8</charset>
         </encoder>
         <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
@@ -145,9 +152,9 @@
         </filter>
     </appender>
 
-    <logger name="org.springframework" level="warn" />
-    <logger name="org.hibernate" level="warn" />
-    <logger name="org.apache.activemq" level="warn"/>
+    <logger name="org.springframework" level="info" />
+    <logger name="org.hibernate" level="info" />
+    <logger name="org.apache.activemq" level="info"/>
     <logger name="xyz.lidaning" level="debug"/>
 
     <!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
@@ -156,8 +163,6 @@
         <appender-ref ref="FILEWARN"/>
         <appender-ref ref="FILEINFO"/>
         <appender-ref ref="FILEALL"/>
-
-        <!-- 生产环境将请stdout,testfile去掉 -->
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
