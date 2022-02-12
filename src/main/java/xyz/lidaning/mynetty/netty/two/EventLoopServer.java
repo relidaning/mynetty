@@ -1,4 +1,4 @@
-package xyz.lidaning.mynetty.netty;
+package xyz.lidaning.mynetty.netty.two;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
@@ -23,7 +23,7 @@ public class EventLoopServer {
                             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                                 ByteBuf buf = (ByteBuf) msg;
                                 log.debug("handler1 got msg : {}", buf.toString(Charset.defaultCharset()));
-                                ctx.fireChannelRead(msg);
+                                ctx.fireChannelRead(msg);       //交由后续handler处理
                             }
                         }).addLast(group, "handler2", new ChannelInboundHandlerAdapter(){
                             @Override
